@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:13:39 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/01/30 11:43:23 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/02/01 19:25:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		pf_helper_s(t_arg *arg)
 	dwidth = 0;
 	dprec = 0;
 	arg->len = ft_strlen(arg->s);
-	if (arg->precision != -1 && arg->precision < arg->len)
+	if (arg->precision != -1 && arg->precision <= arg->len)
 	{
 		dprec = arg->precision;
 		arg->len = arg->precision;
