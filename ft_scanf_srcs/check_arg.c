@@ -16,7 +16,7 @@ static void		set_flags(t_arg *arg, char *s)
 {
 	while (*s)
 	{
-		if (*s == ' ')
+		if (*s == '*')
 			arg->space = 1;
 		if (*s == 'a')
 			arg->alloc = 1;

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pf_handler_s.c                                     :+:      :+:    :+:   */
+/*   sf_handler_s.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,61 +12,20 @@
 
 #include "../../includes/libft.h"
 
-static void		pf_helper2_s(t_arg *arg, int dw, int dp)
+int			sf_handler_s(t_sf *sf)
 {
-	char		*tmp;
+	char	*p;
+	int	len;
+	char	c;
 
-	arg->buf = ft_strnew(arg->len);
-	while (!arg->minus && dw-- > 0)
-		ft_strcat(arg->buf, (arg->zero ? "0" : " "));
-	if (arg->precision == -1 || arg->precision > (int)ft_strlen(arg->s))
-		tmp = ft_strdup(arg->s);
-	else
-		tmp = ft_strsub(arg->s, 0, dp);
-	ft_strcat(arg->buf, tmp);
-	while (arg->minus && dw-- > 0)
-		ft_strcat(arg->buf, " ");
-	free(tmp);
-}
-
-static void		pf_helper_s(t_arg *arg)
-{
-	int		dwidth;
-	int		dprec;
-
-	dwidth = 0;
-	dprec = 0;
-	arg->len = ft_strlen(arg->s);
-	if (arg->precision != -1 && arg->precision <= arg->len)
+	if (!(p = va_arg(*(arg->ap), char *)))
+		return (-1);
+	len = 0;
+	while ((c = read_buff_at_index(sf)) && !ft_strchr(SPACES, c))
 	{
-		dprec = arg->precision;
-		arg->len = arg->precision;
+		p[len] = c;
+		sf->index++;
+		len++;
 	}
-	if (arg->min_width > arg->len)
-	{
-		dwidth = arg->min_width - arg->len;
-		arg->len = arg->min_width;
-	}
-	pf_helper2_s(arg, dwidth, dprec);
-}
-
-char			*pf_handler_s(t_arg *arg)
-{
-	t_length_modifier		lm;
-
-	lm = arg->length;
-	if (lm == l)
-		return (pf_handler_ls(arg));
-	else
-		arg->s = va_arg(*(arg->ap), char *);
-	if (!arg->s && arg->precision)
-	{
-		arg->buf = ft_strdup("(null)");
-		arg->len = 6;
-		return (arg->buf);
-	}
-	else if (!arg->s)
-		arg->s = ft_strnew(0);
-	pf_helper_s(arg);
-	return (arg->buf);
+	return (len);
 }

@@ -12,30 +12,27 @@
 
 #include "../includes/libft.h"
 
-static char	*call_handler(t_pf *pf, char conversion)
+static int	call_handler(t_sf *sf, char conversion)
 {
 	int		index;
-	t_arg	*arg;
 
-	arg = (t_arg *)pf->arg;
 	index = 0;
-	while (index < NB_SPEC && pf->handlers[index].c != conversion)
+	while (index < NB_SPEC && sf->handlers[index].c != conversion)
 		index++;
 	if (index < NB_SPEC)
-		return (pf->handlers[index].f(arg));
-	return (pf_handler_other(arg));
+		return (sf->handlers[index].f(sf));
+	return (0);
 }
 
-int			scan_arg(t_pf *pf)
+int			scan_arg(t_sf *sf)
 {
 	t_arg	*arg;
+	int		tmp;
 
-	arg = (t_arg *)(pf->arg);
-	arg->ap = pf->ap;
+	arg = (t_arg *)(sf->arg);
 	check_arg(arg);
-	arg->buf = call_handler(pf, arg->conversion);
-	if (pf->arg->error)
+	if ((tmp = call_handler(pf, arg->conversion)) < 0)
 		return (-1);
-	pf->ret += arg->len;
-	return (pf->ret);
+	sf->ret += tmp;
+	return (sf->ret);
 }

@@ -25,8 +25,11 @@ static int	find_arg(t_pf *pf, t_arg *arg, const char *format)
 	}
 	len = 0;
 	while (format[len] && format[len] != '%')
-		if (read_at_index(sf, sf->index++) != format[len++])
-			return (-1)
+	{
+		if (read_buff_at_index(sf) != format[len++])
+			return (-1);
+		sf->index++;
+	}
 	return (len);
 }
 
@@ -40,9 +43,9 @@ int		sf_core(t_pf *pf, const char *format)
 		ft_memset(&arg, 0, sizeof(t_arg));
 		if ((tmp = find_arg(pf, &arg, format)) < 0)
 			return (0);
-		format += tmp;
 		pf->arg = &arg;
 		pf->ret = scan_arg(pf);
+		format += tmp;
 	}
 	return (1);
 }

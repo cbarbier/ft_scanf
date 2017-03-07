@@ -15,9 +15,10 @@
 # include <stdarg.h>
 # include <inttypes.h>
 # include "libft.h"
-# define NB_SPEC			19
-# define SPECIFIERS			"%sSpdDioOuUxXcCbBfF"
-# define FLAGS				" a"
+# define NB_SPEC			4
+# define SPECIFIERS			"disc"
+# define SPACES				" \t\n"
+# define FLAGS				"*a"
 # define LM					"lmhjz"
 typedef enum	e_length_modifier
 {
@@ -37,20 +38,17 @@ typedef struct				s_arg
 	char					*text;
 	int						error;
 	int						alloc;
-	int						space;
+	int						skip;
 	int						max_width;
 	t_length_modifier		length;
 	char					conversion;
-	char					*buf;
-	int						len;
-	va_list					*ap;
 }							t_arg;
 
-typedef struct				s_handler
+typedef struct				s_sfhandler
 {
 	char					c;
-	char					*(*f)(t_arg *arg);
-}							t_handler;
+	int						(*f)(t_sf *sf);
+}							t_sfhandler;
 
 typedef struct				s_sf
 {
@@ -58,7 +56,7 @@ typedef struct				s_sf
 	char					*buff;
 	int						len;
 	char					*buf;
-	t_handler				handlers[NB_SPEC];
+	t_sfhandler				handlers[NB_SPEC];
 	t_arg					*arg;
 	va_list					*ap;
 }							t_sf;
@@ -71,15 +69,7 @@ int							scan_buffer(t_sf *sf);
 char						read_at_index(t_sf *sf, int index);
 int							init_buff(t_sf *sf);
 char						*sf_handler_di(t_arg *arg);
-char						*sf_handler_uox(t_arg *arg);
 char						*sf_handler_c(t_arg*arg);
 char						*sf_handler_s(t_arg *arg);
-char						*sf_handler_p(t_arg *arg);
-char						*sf_handler_ls(t_arg *arg);
-char						*sf_handler_lc(t_arg *arg);
-char						*sf_handler_percent(t_arg *arg);
-char						*sf_handler_other(t_arg *arg);
-char						*sf_handler_b(t_arg *arg);
-char						*sf_handler_f(t_arg *arg);
 
 #endif

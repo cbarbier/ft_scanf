@@ -16,7 +16,7 @@ static int		fill_buff(t_sf *sf)
 {
 	int	ret;
 
-	if ((ret = read(sf->fd, sf->buff, sf->size) < 0)
+	if ((ret = read(sf->fd, sf->buff, sf->size) < 0))
 		return (-1);
 	buff[ret] = 0;
 	return (ret);
@@ -30,10 +30,13 @@ int				init_buff(t_sf *sf)
 	return (1);
 }
 
-char		read_at_index(t_sf *sf, int index)
+char		read_at_index(t_sf *sf)
 {
-	if (!sf->buff[index])
+	if (!sf->buff[sf->index])
+	{
+		sf->index = 0;
 		if (!fill_buff(sf->buff, sf->size, sf->fd))
 			return (0);
-	return (sf->buff[index]);
+	}
+	return (sf->buff[sf->index]);
 }
