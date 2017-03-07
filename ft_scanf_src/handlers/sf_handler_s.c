@@ -21,7 +21,6 @@ int			sf_handler_s(t_sf *sf)
 	if (!(p = va_arg(*(sf->ap), char *)))
 		return (-1);
 	len = 0;
-	ft_printf("s handler\n");
 	while ((c = read_buff_at_index(sf)) && !ft_strchr(SPACES, c))
 	{
 		p[len] = c;

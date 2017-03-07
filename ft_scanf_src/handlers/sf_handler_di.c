@@ -27,7 +27,6 @@ int				sf_handler_di(t_sf *sf)
 		sign = 1;
 	len = sign == -1 ? 1 : 0;
 	val = 0;
-	ft_printf("di handleer\n");
 	while ((c = read_buff_at_index(sf)) && ft_isdigit(c))
 	{
 		ft_printf("%c\n", c);

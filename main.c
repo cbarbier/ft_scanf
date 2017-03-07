@@ -21,7 +21,7 @@ int		main(void)
 	char	c;
 
 	ft_bzero(str, 100 * sizeof(char));
-	ft_scanf(0, "str%s %d %c", str, &a, &c);
+	ft_scanf(0, "%s player -p%dc%c", str, &a, &c);
 	ft_printf("%s %d %c", str, a, c);
 	return (0);
 }

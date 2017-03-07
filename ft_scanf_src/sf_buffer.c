@@ -18,13 +18,9 @@ char		read_buff_at_index(t_sf *sf)
 	int			ret;
 
 	if (sf->index < index)
-	{
-		ft_printf("char read from buff :[%c]\n", sf->buff);
 		return (sf->buff);
-	}
 	index++;
 	if ((ret = read(sf->fd, &(sf->buff), 1) < 0))
 		return (-1);
-	ft_printf("char read from buff :[%c]\n", sf->buff);
 	return (sf->buff);
 }
