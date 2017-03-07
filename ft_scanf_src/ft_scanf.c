@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scan_arg.c                                         :+:      :+:    :+:   */
+/*   ft_scanf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/05 13:47:52 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/06 15:58:46 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/01/04 10:38:54 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/03/07 18:42:16 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static int	call_handler(t_sf *sf, char conversion)
+int			ft_scanf(int fd, const char *format, ...)
 {
-	int		index;
+	int			ret;
+	t_sf		sf;
+	va_list		ap;
 
-	index = 0;
-	while (index < NB_SPEC && sf->handlers[index].c != conversion)
-		index++;
-	if (index < NB_SPEC)
-		return (sf->handlers[index].f(sf));
-	return (0);
-}
-
-int			scan_arg(t_sf *sf)
-{
-	t_arg	*arg;
-	int		tmp;
-
-	arg = (t_arg *)(sf->arg);
-	check_arg(arg);
-	if ((tmp = call_handler(pf, arg->conversion)) < 0)
-		return (-1);
-	sf->ret += tmp;
-	return (sf->ret);
+	init_sf(&sf, fd);
+	sf.ap = &ap;
+	va_start(*(sf.ap), format);
+	sf_core(&sf, format);
+	va_end(*(sf.ap));
+	ret = sf.ret;
+	return (ret);
 }

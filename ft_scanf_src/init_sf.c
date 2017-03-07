@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 19:19:34 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/06 16:00:51 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/07 16:46:17 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	set_handler(t_sfhandler *handler, char *v, int (*f)(t_sf *sf))
 
 static void	init_sf_specifiers(t_sf *sf)
 {
-	t_handler *handlers;
+	t_sfhandler *handlers;
 
 	handlers = sf->handlers;
 	set_handler(handlers, "d", &sf_handler_di);
@@ -29,8 +29,10 @@ static void	init_sf_specifiers(t_sf *sf)
 	set_handler(handlers + 3, "c", &sf_handler_c);
 }
 
-void		init_sf(t_sf *sf)
+int			init_sf(t_sf *sf, int fd)
 {
-	ft_memset(pf, 0, sizeof(t_sf));
+	ft_bzero(sf, sizeof(t_sf));
+	sf->fd = fd;
 	init_sf_specifiers(sf);
+	return (1);
 }

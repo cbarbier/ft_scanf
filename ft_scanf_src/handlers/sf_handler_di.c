@@ -6,26 +6,32 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 15:13:39 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/06 18:56:05 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/07 17:44:59 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-char			*sf_handler_di(sf *sf)
+int				sf_handler_di(t_sf *sf)
 {
 	unsigned int	val;
-	int			*p;
-	char		c;
-	int		sign;
-	int		len;
+	int				*p;
+	char			c;
+	int				sign;
+	int				len;
 
-	sign = read_buff_at_index(sf) == '-' ? -1 : 1;
+	sign = -1;
+	if (read_buff_at_index(sf) == '-')
+		sf->index++;
+	else
+		sign = 1;
 	len = sign == -1 ? 1 : 0;
 	val = 0;
+	ft_printf("di handleer\n");
 	while ((c = read_buff_at_index(sf)) && ft_isdigit(c))
 	{
-		val *= 10 + (c - '0');
+		ft_printf("%c\n", c);
+		val = 10 * val + (c - '0');
 		sf->index++;
 		len++;
 	}

@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sf_handler_s.c                                     :+:      :+:    :+:   */
+/*   sf_buffer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/06 15:13:39 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/02/01 19:25:34 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/03/06 17:59:18 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/03/07 18:39:26 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/ft_scanf.h"
 
-int			sf_handler_s(t_sf *sf)
+char		read_buff_at_index(t_sf *sf)
 {
-	char	*p;
-	int	len;
-	char	c;
+	static int	index = 0;
+	int			ret;
 
-	if (!(p = va_arg(*(arg->ap), char *)))
-		return (-1);
-	len = 0;
-	while ((c = read_buff_at_index(sf)) && !ft_strchr(SPACES, c))
+	if (sf->index < index)
 	{
-		p[len] = c;
-		sf->index++;
-		len++;
+		ft_printf("char read from buff :[%c]\n", sf->buff);
+		return (sf->buff);
 	}
-	return (len);
+	index++;
+	if ((ret = read(sf->fd, &(sf->buff), 1) < 0))
+		return (-1);
+	ft_printf("char read from buff :[%c]\n", sf->buff);
+	return (sf->buff);
 }

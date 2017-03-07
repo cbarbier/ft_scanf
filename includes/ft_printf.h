@@ -6,7 +6,7 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 11:27:08 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/01/30 20:46:43 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/07 18:46:43 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define YEL				"\x1B[33m"
 # define BLU				"\x1B[34m"
 # define EOC				"\033[0m"
+
 typedef enum	e_length_modifier
 {
 	none,
@@ -59,18 +60,18 @@ typedef struct				s_arg
 	va_list					*ap;
 }							t_arg;
 
-typedef struct				s_handler
+typedef struct				s_pfhandler
 {
 	char					c;
 	char					*(*f)(t_arg *arg);
-}							t_handler;
+}							t_pfhandler;
 
 typedef struct				s_pf
 {
 	int						ret;
 	int						len;
 	char					*buf;
-	t_handler				handlers[NB_SPEC];
+	t_pfhandler				handlers[NB_SPEC];
 	t_arg					*arg;
 	va_list					*ap;
 }							t_pf;

@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   scan_arg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/04 17:46:24 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/07 18:40:41 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/01/05 13:47:52 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/03/07 16:23:39 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-#include <stdio.h>
-#include <locale.h>
+#include "../includes/libft.h"
 
-int		main(void)
+static int	call_handler(t_sf *sf, char conversion)
 {
-	char	str[100];
-	int		a;
-	char	c;
+	int		index;
 
-	ft_bzero(str, 100 * sizeof(char));
-	ft_scanf(0, "str%s %d %c", str, &a, &c);
-	ft_printf("%s %d %c", str, a, c);
-	return (0);
+	index = 0;
+	while (index < NB_SF_SPEC && sf->handlers[index].c != conversion)
+		index++;
+	if (index < NB_SF_SPEC)
+		return (sf->handlers[index].f(sf));
+	return (-1);
+}
+
+int			scan_arg(t_sf *sf)
+{
+	int		tmp;
+
+	if ((tmp = call_handler(sf, sf->conv)) < 0)
+		return (-1);
+	sf->ret += tmp;
+	return (1);
 }

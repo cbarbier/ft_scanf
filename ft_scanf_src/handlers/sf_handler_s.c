@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_scanf.c                                        :+:      :+:    :+:   */
+/*   sf_handler_s.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/04 10:38:54 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/06 18:21:40 by cbarbier         ###   ########.fr       */
+/*   Created: 2017/01/06 15:13:39 by cbarbier          #+#    #+#             */
+/*   Updated: 2017/03/07 17:38:34 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../../includes/libft.h"
 
-int			ft_scanf(int fd, const char *format, ...)
+int			sf_handler_s(t_sf *sf)
 {
-	int			ret;
-	t_sf		sf;
-	va_list		ap;
+	char		*p;
+	int			len;
+	char		c;
 
-	init_pf(&sf);
-	init_buff(&sf);
-	sf.ap = &ap;
-	va_start(*(sf.ap), format);
-	split_args(&sf, format);
-	va_end(*(pf.ap));
-	free(sf->buff);
-	ret = sf.ret;
-	return (ret);
+	if (!(p = va_arg(*(sf->ap), char *)))
+		return (-1);
+	len = 0;
+	ft_printf("s handler\n");
+	while ((c = read_buff_at_index(sf)) && !ft_strchr(SPACES, c))
+	{
+		p[len] = c;
+		sf->index++;
+		len++;
+	}
+	return (len);
 }

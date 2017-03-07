@@ -10,7 +10,7 @@
 #                                                                            */
 # ************************************************************************** */
 
-NAME = libftprintf.a
+NAME = libft.a
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -102,7 +102,15 @@ SRC  = ft_memset.c \
 	   ft_printf_src/handlers/pf_handler_percent.c \
 	   ft_printf_src/handlers/pf_handler_b.c \
 	   ft_printf_src/handlers/pf_handler_f.c \
-	   ft_printf_src/handlers/pf_handler_other.c
+	   ft_printf_src/handlers/pf_handler_other.c \
+	   ft_scanf_src/ft_scanf.c \
+	   ft_scanf_src/init_sf.c \
+	   ft_scanf_src/scan_arg.c \
+	   ft_scanf_src/sf_buffer.c \
+	   ft_scanf_src/sf_core.c \
+	   ft_scanf_src/handlers/sf_handler_di.c \
+	   ft_scanf_src/handlers/sf_handler_s.c \
+	   ft_scanf_src/handlers/sf_handler_c.c
 
 OBJ = $(SRC:.c=.o)
 

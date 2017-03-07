@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_args.c                                       :+:      :+:    :+:   */
+/*   sf_core.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 11:48:16 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/03/06 19:52:25 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/07 18:42:27 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-
-
-static int	find_arg(t_pf *pf, t_arg *arg, const char *format)
+static int	find_arg(t_sf *sf, const char *format)
 {
 	int		len;
 
 	if (*format == '%' && format[1])
 	{
-		arg.conversion = format[1];
+		sf->conv = format[1];
 		return (2);
 	}
 	len = 0;
@@ -33,18 +31,17 @@ static int	find_arg(t_pf *pf, t_arg *arg, const char *format)
 	return (len);
 }
 
-int		sf_core(t_pf *pf, const char *format)
+int			sf_core(t_sf *sf, const char *format)
 {
 	int		tmp;
-	t_arg	arg;
 
 	while (*format)
 	{
-		ft_memset(&arg, 0, sizeof(t_arg));
-		if ((tmp = find_arg(pf, &arg, format)) < 0)
+		sf->conv = 0;
+		if ((tmp = find_arg(sf, format)) < 0)
 			return (0);
-		pf->arg = &arg;
-		pf->ret = scan_arg(pf);
+		if (sf->conv && scan_arg(sf) < 0)
+			return (0);
 		format += tmp;
 	}
 	return (1);

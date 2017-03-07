@@ -6,13 +6,13 @@
 /*   By: cbarbier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/06 19:19:34 by cbarbier          #+#    #+#             */
-/*   Updated: 2017/01/30 13:15:11 by cbarbier         ###   ########.fr       */
+/*   Updated: 2017/03/07 15:19:52 by cbarbier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static void	set_handler(t_handler *handler, char *v, char *(*f)(t_arg *arg))
+static void	set_handler(t_pfhandler *handler, char *v, char *(*f)(t_arg *arg))
 {
 	handler->c = *v;
 	handler->f = f;
@@ -20,7 +20,7 @@ static void	set_handler(t_handler *handler, char *v, char *(*f)(t_arg *arg))
 
 static void	init_pf_specifiers(t_pf *pf)
 {
-	t_handler *handlers;
+	t_pfhandler *handlers;
 
 	handlers = pf->handlers;
 	set_handler(handlers, "%", &pf_handler_percent);
