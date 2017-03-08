@@ -16,7 +16,7 @@
 # include "libft.h"
 # define NB_SF_SPEC			4
 # define SF_SPEC			"disc"
-# define SPACES				" \t\n"
+# define SPACES				" \t"
 
 typedef struct s_sf			t_sf;
 typedef struct				s_sfhandler

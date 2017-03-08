@@ -15,13 +15,20 @@
 static int	find_arg(t_sf *sf, const char *format)
 {
 	int		len;
+	char		c;
 
-	if (*format == '%' && format[1])
-	{
-		sf->conv = format[1];
-		return (2);
-	}
 	len = 0;
+	while ((c = read_buff_at_index(sf)) && ft_strchr(SPACES, c))
+	{
+		if (format[len] == c)
+			len++;
+		sf->index++;
+	}
+	if (format[len] == '%' && format[len + 1])
+	{
+		sf->conv = format[len + 1];
+		return (len + 2);
+	}
 	while (format[len] && format[len] != '%')
 	{
 		if (read_buff_at_index(sf) != format[len++])

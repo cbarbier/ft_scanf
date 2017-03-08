@@ -29,7 +29,6 @@ int				sf_handler_di(t_sf *sf)
 	val = 0;
 	while ((c = read_buff_at_index(sf)) && ft_isdigit(c))
 	{
-		ft_printf("%c\n", c);
 		val = 10 * val + (c - '0');
 		sf->index++;
 		len++;
